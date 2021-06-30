@@ -1,0 +1,8 @@
+#cursor {
+    position: fixed;
+    z-index: 1;
+    left: -5%;
+    bottom: 40%;
+    transform: translate(0, 0);
+    transition: transform 500ms;
+}
