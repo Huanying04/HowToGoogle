@@ -1,0 +1,40 @@
+.settings-main {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 6px;
+    height: 60px;
+    font-size: 14px;
+    font-family: arial,sans-serif;
+    color: #222;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.settings-lang {
+    display: flex;
+    width: calc(100% - 270px);
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.settings-type {
+    display: flex;
+    width: 270px;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-type.item{
+    width: 90px;
+}
+
+.settings-type.item a{
+    color: #222;
+    text-decoration: none;
+}
+
+.settings-type.item a:hover{
+    color: #222;
+    text-decoration: underline;
+}

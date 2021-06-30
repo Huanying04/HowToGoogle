@@ -13,5 +13,8 @@
     "step3": "第三步：將游標移至搜尋鍵上，左鍵點擊即可查詢你要查詢的東西",
     "tutorialFinish": "這樣都學會了嗎？是不是很簡單呢？",
     "not4u": "你來這邊不是來學習怎麼使用Google的嗎？那你怎麼會想用這功能？",
-    "langHint": "語言："
+    "langHint": "語言：",
+    "mainType": "搜尋",
+    "imageType": "圖片",
+    "searchByImageTpye": "以圖搜尋"
 }

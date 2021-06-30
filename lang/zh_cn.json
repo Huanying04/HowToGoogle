@@ -13,5 +13,8 @@
     "step3": "第三步：将光标移至搜索键上，左键点击即可查询你想查询的东西",
     "tutorialFinish": "这样都学会了吗？是不是很简单呢？",
     "not4u": "你来这边不是来学习怎么使用谷歌的吗？那怎么会想用这个功能？",
-    "langHint": "语言："
+    "langHint": "语言：",
+    "mainType": "搜索",
+    "imageType": "图片",
+    "searchByImageTpye": "按图片搜索"
 }

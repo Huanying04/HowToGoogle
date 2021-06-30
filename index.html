@@ -22,19 +22,33 @@
         <link rel="stylesheet" href="index.css">
         <link rel="stylesheet" href="toast.css">
         <link rel="stylesheet" href="search.css">
+        <link rel="stylesheet" href="flex.css">
         <meta data-n-head="1" name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body style="margin: 0;padding: 0 5px;">
-        <div id="selLang" style="text-align: right;">
-            <span id="langHint"></span>
-            <select id="lang">
-                <option id="zh_tw">繁體中文</option>
-                <option id="zh_cn">简体中文</option>
-                <option id="en">English</option>
-                <option id="ja">日本語</option>
-            </select>
+    <body style="margin: 0;padding: 0;">
+        <div class="settings-main">
+            <div class="settings-type" style="visibility: hidden;">
+                <div class="settings-type item">
+                    <a href="/" id="type-search"></a>
+                </div>
+                <div id="" class="settings-type item">
+                    <a href="/" id="type-image"></a>
+                </div>
+                <div class="settings-type item">
+                    <a href="/" id="type-searchbyimage"></a>
+                </div>
+            </div>
+            <div id="selLang" style="text-align: right;" class="settings-lang">
+                <span id="langHint"></span>
+                <select id="lang">
+                    <option id="zh_tw">繁體中文</option>
+                    <option id="zh_cn">简体中文</option>
+                    <option id="en">English</option>
+                    <option id="ja">日本語</option>
+                </select>
+            </div>
         </div>
-        
+
         <div id="logo">
             <img src="img/logo.png" width="300vh" class="logo center">
         </div>
@@ -47,7 +61,7 @@
             <button id="generatebtn" style="visibility: hidden;"></button>
         </div>
         <div id="result" style="text-align: center; visibility: hidden;">
-            <div id="link" ></div>
+            <div id="link" style="overflow-wrap: anywhere"></div>
             <button id="copy"></button>
         </div>
         <div id="cursors">

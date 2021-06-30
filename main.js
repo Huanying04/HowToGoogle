@@ -24,6 +24,9 @@ window.onload = function () {
             $("#generatebtn").html(translation.generate);
             $("#copy").html(translation.copy);
             $("#langHint").html(translation.langHint);
+            $("#type-search").html(translation.mainType);
+            $("#type-image").html(translation.imageType);
+            $("#type-searchbyimage").html(translation.searchByImageTpye);
 
             if (getParam('search')==null || getParam('search')=='') {
                 document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};

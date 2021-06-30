@@ -13,5 +13,8 @@
     "step3": "Step 3<br>Move your cursor onto search button, then left click,<br> BOOM! You searched what you want!",
     "tutorialFinish": "Is it easy? Let's remember it!",
     "not4u": "Didn't you come here for how to google something? then why u r using the function?",
-    "langHint": "Language: "
+    "langHint": "Language: ",
+    "mainType": "Search",
+    "imageType": "Images",
+    "searchByImageTpye": "Search by image"
 }
