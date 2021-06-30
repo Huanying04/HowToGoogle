@@ -1,8 +1,7 @@
 window.onload = function () {
-    document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
-    document.getElementById("nothis").onclick = function(){showToast("不是點這個，是左邊那個");};
-
     if (getParam('search')==null) {
+        document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
+        document.getElementById("nothis").onclick = function(){showToast("不是點這個，是左邊那個");};
         document.getElementById("generatebtn").style.visibility = "visible";
         document.getElementById("generatebtn").onclick = function(){
             if (document.getElementById('searchbar').value=='') {
@@ -13,6 +12,7 @@ window.onload = function () {
             }
         };
     }else {
+        document.getElementById("generatebtn").onclick = function(){showToast("你來這邊不是來學習怎麼使用Google的嗎？那你怎麼會想用這功能？");};
         var searchbar = document.getElementById('searchbar');
         var cursor = $('#cursor');
         var btn = document.getElementById('searchbtn');
@@ -48,8 +48,8 @@ window.onload = function () {
         setTimeout(
             function(){
                 showingToast("這樣都學會了嗎？是不是很簡單呢？");
-                cursor.style.left = "47vw";
-                cursor.style.top = "59.5vh";
+                document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
+                document.getElementById("nothis").onclick = function(){showToast("不是點這個，是左邊那個");};
             },
             7400
         );
