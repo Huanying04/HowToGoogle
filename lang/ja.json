@@ -1,0 +1,17 @@
+{
+    "search": "Google 検索",
+    "feelingLucky": "I'm Feeling Lucky",
+    "generate": "URLを生成する",
+    "copy": "URLをコピー",
+    "generated": "生成した",
+    "copied": "コピーした",
+    "nothishint": "これじゃない、左のやつだ",
+    "emptySearch": "何かを入力しろよ",
+    "step1": "STEP 1<br>まず、Googleにアクセスして<br>ここのロゴはGoogleと違いがあるので、心配なく",
+    "step2_1": "STEP 2<br>入力欄をクリックして、<br>あなたの知りたいこと「",
+    "step2_2": "」を入力して",
+    "step3": "STEP 3<br>「Google 検索」をクリックして、検索をできるよ",
+    "tutorialFinish": "これで全部覚えた？簡単でしょ？",
+    "not4u": "ここでどうグーグルで検索することを勉強に来たじゃない？<br>じゃどうしてこれを使いたいの？",
+    "langHint": "言語："
+}

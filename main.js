@@ -1,76 +1,113 @@
 window.onload = function () {
-    if (getParam('search')==null || getParam('search')=='') {
-        document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
-        document.getElementById("nothis").onclick = function(){showToast("不是點這個，是左邊那個");};
-        document.getElementById("generatebtn").style.visibility = "visible";
-        document.getElementById("generatebtn").onclick = function(){
-            if (document.getElementById('searchbar').value=='') {
-                showToast('至少輸入點什麼吧');
-            }else {
-                document.getElementById("link").innerHTML = generate(document.getElementById('searchbar').value);
-                document.getElementById("result").style.visibility = "visible";
-                showToast("已產生");
+    var lang = getParam('lang')==null?"zh_tw":fileExists("lang/" + getParam('lang') + ".json")?getParam('lang'):"zh_tw";
+    var translation;
+
+    $("#lang").val($("#" + lang).text());
+
+    function ajaxCall1() {
+        return  $.ajax({
+            type: 'GET',
+            url: "lang/" + lang + ".json",
+            success: function(data) {
+                translation = data;
             }
-        };
-        document.getElementById("copy").onclick = function(){
-            var el = document.getElementById('link');
-            var range = document.createRange();
-            range.selectNodeContents(el);
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-            document.execCommand('copy');
-            showToast('已複製');
-        };
-    }else {
-        document.getElementById("generatebtn").onclick = function(){showToast("你來這邊不是來學習怎麼使用Google的嗎？那你怎麼會想用這功能？");};
-        var searchbar = document.getElementById('searchbar');
-        var cursor = $('#cursor');
-        var btn = document.getElementById('searchbtn');
-        var keyword = getParam('search');
-        searchbar.disabled = true;
-        searchbar.value = '';
-        showToast('第一步：訪問網站Google<br>在此Logo可能不一樣，但沒關係，首先將游標移至輸入框上');
-        cursor.animate(
-            {
-                "top": (searchbar.offsetTop + 15),
-                "left": (searchbar.offsetLeft + 25)
-            },
-            3000, "swing"
-        );
-        setTimeout(
-            function(){
-                showToast('第二步：左鍵點擊輸入框，在裡面輸入你想查的東西"' + keyword +'"');
-                addSearchText(keyword, 1000/keyword.length);
-            },
-            3200
-        );
-        setTimeout(
-            function(){
-                showToast('第三步：將游標移至搜尋鍵上，左鍵點擊即可查詢你要查詢的東西');
-                cursor.animate({
-                    "top": (btn.offsetTop + 20),
-                    "left": (btn.offsetLeft + 50)
-                },
-                3000
-                );
-            },4400
-        );
-        setTimeout(
-            function(){
-                showingToast("這樣都學會了嗎？是不是很簡單呢？");
+        });
+    }   
+
+    $.when(
+        ajaxCall1()
+    ).done(
+        function() {
+            $("#searchbtn").html(translation.search);
+            $("#nothis").html(translation.feelingLucky);
+            $("#generatebtn").html(translation.generate);
+            $("#copy").html(translation.copy);
+            $("#langHint").html(translation.langHint);
+
+            if (getParam('search')==null || getParam('search')=='') {
                 document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
-                document.getElementById("nothis").onclick = function(){showToast("不是點這個，是左邊那個");};
-            },
-            7400
-        );
-        setTimeout(
-            function(){
-                google(keyword);
-            },
-            10400
-        );
-    }
+                document.getElementById("nothis").onclick = function(){showToast(translation.nothishint);};
+                document.getElementById("generatebtn").style.visibility = "visible";
+                document.getElementById("generatebtn").onclick = function(){
+                    if (document.getElementById('searchbar').value=='') {
+                        showToast(translation.emptySearch);
+                    }else {
+                        document.getElementById("link").innerHTML = generate(document.getElementById('searchbar').value);
+                        document.getElementById("result").style.visibility = "visible";
+                        showToast(translation.generated);
+                    }
+            };
+            document.getElementById("copy").onclick = function(){
+                var el = document.getElementById('link');
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                document.execCommand('copy');
+                showToast(translation.copied);
+            };
+        }else {
+            document.getElementById("generatebtn").onclick = function(){showToast(translation.not4u);};
+            var searchbar = document.getElementById('searchbar');
+            var cursor = $('#cursor');
+            var btn = document.getElementById('searchbtn');
+            var keyword = getParam('search');
+            searchbar.disabled = true;
+            searchbar.value = '';
+            showToast(translation.step1);
+            cursor.animate(
+                {
+                    "top": (searchbar.offsetTop + 15),
+                    "left": (searchbar.offsetLeft + 25)
+                },
+                3000,
+                "swing"
+            );
+            setTimeout(
+                function(){
+                    showToast(translation.step2_1 + keyword + translation.step2_2);
+                    addSearchText(keyword, 1000/keyword.length);
+                },
+                3200
+            );
+            setTimeout(
+                function(){
+                    showToast(translation.step3);
+                    cursor.animate({
+                        "top": (btn.offsetTop + 20),
+                        "left": (btn.offsetLeft + 50)
+                    },
+                    3000
+                    );
+                },4400
+            );
+            setTimeout(
+                function(){
+                    showingToast(translation.tutorialFinish);
+                    document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
+                    document.getElementById("nothis").onclick = function(){showToast(translation.nothishint);};
+                },
+                7400
+            );
+            setTimeout(
+                function(){
+                    google(keyword);
+                },
+                10400
+            );
+        }
+
+    });
+
+    $("#lang").change(
+        function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            urlParams.set('lang', $("#lang").children(":selected").attr("id"));
+            window.location.href=location.protocol + '//' + location.host + location.pathname + '?' + urlParams.toString();
+        }
+    )
 }
 
 function google(keyword) {
@@ -113,7 +150,7 @@ function generate(keyword) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     urlParams.append('search', keyword);
-    return document.URL + '?' + urlParams.toString();
+    return location.protocol + '//' + location.host + location.pathname + '?' + urlParams.toString();
 }
 
 function animateSearchGuide() {
@@ -139,4 +176,12 @@ function addSearchText(str, time) {
         },
          time
     );
+}
+
+function fileExists(url)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status==200;
 }

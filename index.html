@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html>
     <head>
         <meta charset="utf-8">
         <title>HowToGoogle</title>
 
         <meta name="title" content="HowToGoogle">
-        <meta name="description" content="富含知識、智慧以及真理就在這裡呈現給你。">
+        <meta name="description" content="The site that treastures lots of intelligences, knowledges, and truths for you 富含知識、智慧以及真理就在這裡呈現給你">
 
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://huanying04.github.io/HowToGoogle/">
         <meta property="og:title" content="HowToGoogle">
-        <meta property="og:description" content="富含知識、智慧以及真理就在這裡呈現給你。">
+        <meta property="og:description" content="The site that treastures lots of intelligences, knowledges, and truths for you 富含知識、智慧以及真理就在這裡呈現給你">
         <meta property="og:image" content="https://huanying04.github.io/HowToGoogle/img/logo.png">
 
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="https://huanying04.github.io/HowToGoogle/">
         <meta property="twitter:title" content="HowToGoogle">
-        <meta property="twitter:description" content="富含知識、智慧以及真理就在這裡呈現給你。">
+        <meta property="twitter:description" content="The site that treastures lots of intelligences, knowledges, and truths for you 富含知識、智慧以及真理就在這裡呈現給你">
         <meta property="twitter:image" content="https://huanying04.github.io/HowToGoogle/img/logo.png">
 
         <link rel="stylesheet" href="index.css">
@@ -24,7 +24,17 @@
         <link rel="stylesheet" href="search.css">
         <meta data-n-head="1" name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body style="margin: 0;padding: 0;">
+    <body style="margin: 0;padding: 0 5px;">
+        <div id="selLang" style="text-align: right;">
+            <span id="langHint"></span>
+            <select id="lang">
+                <option id="zh_tw">繁體中文</option>
+                <option id="zh_cn">简体中文</option>
+                <option id="en">English</option>
+                <option id="ja">日本語</option>
+            </select>
+        </div>
+        
         <div id="logo">
             <img src="img/logo.png" width="300vh" class="logo center">
         </div>
@@ -32,13 +42,13 @@
             <input id="searchbar" maxlength="2048" class="searchbar center">
         </div>
         <div id="btns" style="text-align: center;padding: 20px;">
-            <button id="searchbtn">Google 搜尋</button>
-            <button id="nothis">好手氣</button><br>
-            <button id="generatebtn" style="visibility: hidden;">產生連結</button>
+            <button id="searchbtn"></button>
+            <button id="nothis"></button><br>
+            <button id="generatebtn" style="visibility: hidden;"></button>
         </div>
         <div id="result" style="text-align: center; visibility: hidden;">
             <div id="link" ></div>
-            <button id="copy">複製到剪貼簿</button>
+            <button id="copy"></button>
         </div>
         <div id="cursors">
             <img id="cursor" src="img/cursor.png">
