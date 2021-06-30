@@ -14,26 +14,18 @@ window.onload = function () {
         };
     }else {
         var searchbar = document.getElementById('searchbar');
-        var cursor = document.getElementById('cursor');
+        var cursor = $('#cursor');
         var btn = document.getElementById('searchbtn');
         var keyword = getParam('search');
+        searchbar.disabled = true;
+        searchbar.value = '';
         showToast('第一步：訪問網站Google<br>在此Logo可能不一樣，但沒關係，首先將游標移至輸入框上');
-        cursor.animate([
-                {
-                    transform: 'translate(0px, 0px)'
-                },
-                {
-                    transform: 'translate(' + (searchbar.offsetLeft - cursor.offsetLeft + 15) +'px,' + (cursor.offsetTop - searchbar.offsetTop - 170) + 'px)' 
-                }
-            ],
-            3000
-        );
-        setTimeout(
-            function(){
-                cursor.style.left = "32vw";
-                cursor.style.top = "47vh";
+        cursor.animate(
+            {
+                "top": (searchbar.offsetTop + 15),
+                "left": (searchbar.offsetLeft + 25)
             },
-            3000
+            3000, "swing"
         );
         setTimeout(
             function(){
@@ -45,11 +37,10 @@ window.onload = function () {
         setTimeout(
             function(){
                 showToast('第三步：將游標移至搜尋鍵上，左鍵點擊即可查詢你要查詢的東西');
-                cursor.animate([
-                    {
-                        transform: 'translate(' + (btn.offsetLeft - cursor.offsetLeft + 55) +'px,' + (searchbar.offsetTop - btn.offsetTop + 166) + 'px)' 
-                    }
-                ],
+                cursor.animate({
+                    "top": (btn.offsetTop + 20),
+                    "left": (btn.offsetLeft + 50)
+                },
                 3000
                 );
             },4400
