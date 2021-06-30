@@ -3,6 +3,7 @@ window.onload = function () {
     var translation;
 
     $("#lang").val($("#" + lang).text());
+    $("html").attr("lang", lang);
 
     function ajaxCall1() {
         return  $.ajax({
