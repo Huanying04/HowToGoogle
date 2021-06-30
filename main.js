@@ -1,5 +1,5 @@
 window.onload = function () {
-    if (getParam('search')==null) {
+    if (getParam('search')==null || getParam('search')=='') {
         document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
         document.getElementById("nothis").onclick = function(){showToast("不是點這個，是左邊那個");};
         document.getElementById("generatebtn").style.visibility = "visible";
