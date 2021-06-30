@@ -29,14 +29,17 @@
             <img src="img/logo.png" width="300vh" class="logo center">
         </div>
         <div id="inputs">
-            <input id="searchbar" class="searchbar center">
+            <input id="searchbar" maxlength="2048" class="searchbar center">
         </div>
         <div id="btns" style="text-align: center;padding: 20px;">
             <button id="searchbtn">Google 搜尋</button>
             <button id="nothis">好手氣</button><br>
             <button id="generatebtn" style="visibility: hidden;">產生連結</button>
         </div>
-        <div id="link" style="text-align: center;"></div>
+        <div id="result" style="text-align: center; visibility: hidden;">
+            <div id="link" ></div>
+            <button id="copy">複製到剪貼簿</button>
+        </div>
         <div id="cursors">
             <img id="cursor" src="img/cursor.png">
         </div>

@@ -8,8 +8,19 @@ window.onload = function () {
                 showToast('至少輸入點什麼吧');
             }else {
                 document.getElementById("link").innerHTML = generate(document.getElementById('searchbar').value);
+                document.getElementById("result").style.visibility = "visible";
                 showToast("已產生");
             }
+        };
+        document.getElementById("copy").onclick = function(){
+            var el = document.getElementById('link');
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            document.execCommand('copy');
+            showToast('已複製');
         };
     }else {
         document.getElementById("generatebtn").onclick = function(){showToast("你來這邊不是來學習怎麼使用Google的嗎？那你怎麼會想用這功能？");};
