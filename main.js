@@ -5,7 +5,7 @@ window.onload = function () {
     $("#lang").val($("#" + lang).text());
     $("html").attr("lang", lang);
 
-    function ajaxCall1() {
+    function loadTranslation() {
         return  $.ajax({
             type: 'GET',
             url: "lang/" + lang + ".json",
@@ -16,7 +16,7 @@ window.onload = function () {
     }   
 
     $.when(
-        ajaxCall1()
+        loadTranslation()
     ).done(
         function() {
             $("#searchbtn").html(translation.search);
@@ -29,10 +29,10 @@ window.onload = function () {
             $("#type-searchbyimage").html(translation.searchByImageTpye);
 
             if (getParam('search')==null || getParam('search')=='') {
-                document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
-                document.getElementById("nothis").onclick = function(){showToast(translation.nothishint);};
-                document.getElementById("generatebtn").style.visibility = "visible";
-                document.getElementById("generatebtn").onclick = function(){
+                $("#searchbtn").click(function(){google(document.getElementById('searchbar').value);});
+                $("#nothis").click(function(){showToast(translation.nothishint);});
+                $("#generatebtn").css('visibility', 'visible');
+                $("#generatebtn").click(function(){
                     if (document.getElementById('searchbar').value=='') {
                         showToast(translation.emptySearch);
                     }else {
@@ -40,69 +40,72 @@ window.onload = function () {
                         document.getElementById("result").style.visibility = "visible";
                         showToast(translation.generated);
                     }
-            };
-            document.getElementById("copy").onclick = function(){
-                var el = document.getElementById('link');
-                var range = document.createRange();
-                range.selectNodeContents(el);
-                var sel = window.getSelection();
-                sel.removeAllRanges();
-                sel.addRange(range);
-                document.execCommand('copy');
-                showToast(translation.copied);
-            };
-        }else {
-            document.getElementById("generatebtn").onclick = function(){showToast(translation.not4u);};
-            var searchbar = document.getElementById('searchbar');
-            var cursor = $('#cursor');
-            var btn = document.getElementById('searchbtn');
-            var keyword = getParam('search');
-            searchbar.disabled = true;
-            searchbar.value = '';
-            showToast(translation.step1);
-            cursor.animate(
-                {
-                    "top": (searchbar.offsetTop + 15),
-                    "left": (searchbar.offsetLeft + 25)
-                },
-                3000,
-                "swing"
-            );
-            setTimeout(
-                function(){
-                    showToast(translation.step2_1 + keyword + translation.step2_2);
-                    addSearchText(keyword, 1000/keyword.length);
-                },
-                3200
-            );
-            setTimeout(
-                function(){
-                    showToast(translation.step3);
-                    cursor.animate({
-                        "top": (btn.offsetTop + 20),
-                        "left": (btn.offsetLeft + 50)
+                });
+                $("#copy").click(function(){
+                    var el = document.getElementById('link');
+                    var range = document.createRange();
+                    range.selectNodeContents(el);
+                    var sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    document.execCommand('copy');
+                    showToast(translation.copied);
+                });
+            }else {
+                document.getElementById("generatebtn").onclick = function(){showToast(translation.not4u);};
+                var searchbar = $("#searchbar");
+                var cursor = $('#cursor');
+                var btn = $("#searchbtn");
+                var keyword = getParam('search');
+                searchbar.val('');
+                searchbar.on('input',function(){
+                    searchbar.val(searchbar.val().substr(0, searchbar.val().length - 1));
+                });
+                showToast(translation.step1);
+                cursor.animate(
+                    {
+                        "top": (searchbar.offset().top + 15),
+                        "left": (searchbar.offset().left + 25)
                     },
-                    3000
-                    );
-                },4400
-            );
-            setTimeout(
-                function(){
-                    showingToast(translation.tutorialFinish);
-                    document.getElementById("searchbtn").onclick = function(){google(document.getElementById('searchbar').value);};
-                    document.getElementById("nothis").onclick = function(){showToast(translation.nothishint);};
-                },
-                7400
-            );
-            setTimeout(
-                function(){
-                    google(keyword);
-                },
-                10400
-            );
+                    3000,
+                    "swing"
+                );
+                setTimeout(
+                    function(){
+                        $("#searchbar").focus()
+                        showToast(translation.step2_1 + keyword + translation.step2_2);
+                        addSearchText(keyword, 1000/keyword.length);
+                    },
+                    3200
+                );
+                setTimeout(
+                    function(){
+                        showToast(translation.step3);
+                        cursor.animate({
+                            "top": (btn.offset().top + 20),
+                            "left": (btn.offset().left + 50)
+                        },
+                        3000
+                        );
+                    },4400
+                );
+                setTimeout(
+                    function(){
+                        showingToast(translation.tutorialFinish);
+                        document.getElementById("searchbtn").onclick = function(){google(searchbar.val());};
+                        document.getElementById("nothis").onclick = function(){showToast(translation.nothishint);};
+                    },
+                    7400
+                );
+                setTimeout(
+                    function(){
+                        google(keyword);
+                    },
+                    10400
+                );
+            }
         }
-
-    });
+    );
 
     $("#lang").change(
         function() {
@@ -157,19 +160,9 @@ function generate(keyword) {
     return location.protocol + '//' + location.host + location.pathname + '?' + urlParams.toString();
 }
 
-function animateSearchGuide() {
-    var element = document.getElementById("cursor");
-    element.className = "show";
-    setTimeout(
-        function(){
-            element.className = element.className.replace("show", "");
-        },
-        1000);
-}
-
 function addSearchText(str, time) {
-    var searchbar = document.getElementById('searchbar');
-    searchbar.value += str[0];
+    var searchbar = $('#searchbar');
+    searchbar.val(searchbar.val() + str[0]);
     str = str.slice(1);
     if (str.length == 0) {
         return;
@@ -178,12 +171,11 @@ function addSearchText(str, time) {
         function(){
             addSearchText(str, time);
         },
-         time
+        time
     );
 }
 
-function fileExists(url)
-{
+function fileExists(url) {
     var http = new XMLHttpRequest();
     http.open('HEAD', url, false);
     http.send();
