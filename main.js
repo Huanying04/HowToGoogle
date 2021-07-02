@@ -1,6 +1,7 @@
 window.onload = function () {
     var lang = getParam('lang')==null?"zh_tw":fileExists("lang/" + getParam('lang') + ".json")?getParam('lang'):"zh_tw";
     var translation;
+    var searchParam = getParam('search');
 
     $("#lang").val($("#" + lang).text());
     $("html").attr("lang", lang);
@@ -28,7 +29,7 @@ window.onload = function () {
             $("#type-image").html(translation.imageType);
             $("#type-searchbyimage").html(translation.searchByImageTpye);
 
-            if (getParam('search')==null || getParam('search')=='') {
+            if (searchParam==null || searchParam=='') {
                 $("#searchbtn").click(function(){google(document.getElementById('searchbar').value);});
                 $("#nothis").click(function(){showToast(translation.nothishint);});
                 $("#generatebtn").css('visibility', 'visible');
@@ -52,11 +53,10 @@ window.onload = function () {
                     showToast(translation.copied);
                 });
             }else {
-                document.getElementById("generatebtn").onclick = function(){showToast(translation.not4u);};
+                $("#generatebtn").click(function(){showToast(translation.not4u);});
                 var searchbar = $("#searchbar");
                 var cursor = $('#cursor');
                 var btn = $("#searchbtn");
-                var keyword = getParam('search');
                 searchbar.val('');
                 searchbar.on('input',function(){
                     searchbar.val(searchbar.val().substr(0, searchbar.val().length - 1));
@@ -73,8 +73,8 @@ window.onload = function () {
                 setTimeout(
                     function(){
                         $("#searchbar").focus()
-                        showToast(translation.step2_1 + keyword + translation.step2_2);
-                        addSearchText(keyword, 1000/keyword.length);
+                        showToast(translation.step2_1 + searchParam + translation.step2_2);
+                        addSearchText(searchParam, 1000/searchParam.length);
                     },
                     3200
                 );
@@ -99,7 +99,7 @@ window.onload = function () {
                 );
                 setTimeout(
                     function(){
-                        google(keyword);
+                        google(searchParam);
                     },
                     10400
                 );
